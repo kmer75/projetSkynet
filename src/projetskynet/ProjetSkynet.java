@@ -23,14 +23,30 @@ public class ProjetSkynet {
         int N = in.nextInt(); // the total number of nodes in the level, including the gateways
         int L = in.nextInt(); // the number of links
         int E = in.nextInt(); // the number of exit gateways
+        List<String> listeLinks = new ArrayList();//Liste des liens : 
+        List<String> listeGatewayLinks = new ArrayList(); //Liste des liens ayant un noeud gateway
+        List<Integer> listIndexGateway = new ArrayList(); //Liste des emplacements des noeuds gateway
+        
         for (int i = 0; i < L; i++) {
             int N1 = in.nextInt(); // N1 and N2 defines a link between these nodes
             int N2 = in.nextInt();
+            listeLinks.add("-"+N1+"-"+N2+"-"); //liste de tout les liens
         }
         for (int i = 0; i < E; i++) {
             int EI = in.nextInt(); // the index of a gateway node
+            listIndexGateway.add(EI); //liste des positions des gateway
         }
 
+        /* 1/ on isole les liens ayant comme noeud le gateway */
+        
+        for(Integer y : listIndexGateway) {        
+        for(String ls : listeLinks) {
+            if(ls.contains("-"+y+"-"))
+                listeGatewayLinks.add(ls);
+            }
+        }
+        
+        
         // game loop
         while (true) {
             int SI = in.nextInt(); // The index of the node on which the Skynet agent is positioned this turn
