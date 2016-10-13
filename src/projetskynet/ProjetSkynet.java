@@ -15,9 +15,10 @@ import java.math.*;
  */
 public class ProjetSkynet {
 
-    /**
-     * @param args the command line arguments
-     */
+     public static String[] split(String chaine, String car) {
+        String[] parts = chaine.split(car);
+        return parts;
+     }
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int N = in.nextInt(); // the total number of nodes in the level, including the gateways
@@ -26,6 +27,7 @@ public class ProjetSkynet {
         List<String> listeLinks = new ArrayList();//Liste des liens : 
         List<String> listeGatewayLinks = new ArrayList(); //Liste des liens ayant un noeud gateway
         List<Integer> listIndexGateway = new ArrayList(); //Liste des emplacements des noeuds gateway
+        Integer index = -1; // valeur retourné par indexOf, par defaut initialisé à -1
         
         for (int i = 0; i < L; i++) {
             int N1 = in.nextInt(); // N1 and N2 defines a link between these nodes
@@ -51,13 +53,45 @@ public class ProjetSkynet {
         while (true) {
             int SI = in.nextInt(); // The index of the node on which the Skynet agent is positioned this turn
 
-            // Write an action using System.out.println()
-            // To debug: System.err.println("Debug messages...");
+            /* 2/ on traite cette nvl liste gateway pour enfermer l'agent sktynet */
+        
+                /*2/a. on regarde en premier si l'agent est sur un noeud ayant un lien direct avec le gateway*/
+        
+            
+        for(Integer y : listIndexGateway) {
+            
+       if(listeGatewayLinks.indexOf("-"+y + "-" + SI+"-") >= 0) {
+          index = listeGatewayLinks.indexOf("-"+y + "-" + SI+"-");
+           String[] parts = split(listeGatewayLinks.get(index), "-");
+           System.err.println("a supprime le lien au 1er cas: "+parts[1]+ " " + parts[2]);
+           System.out.println(parts[1]+ " " + parts[2]);
+       } else if(listeGatewayLinks.indexOf("-"+SI + "-" + y+"-") >= 0) {
+           index = listeGatewayLinks.indexOf("-"+SI + "-" + y+"-");
+           String[] parts = split(listeGatewayLinks.get(index), "-");
+           System.err.println("a supprime le lien au 2e cas: "+parts[1]+ " " + parts[2]);
+           System.out.println(parts[1]+ " " + parts[2]);
+       }
+       
+       
+   
+} // fin for tableau EI
 
+/* 2/b. si le lien n'est pas direct, on elimine un lien au hasard */
 
-            // Example: 0 1 are the indices of the nodes you wish to sever the link between
-            System.out.println("0 1");
-        }
+if(index == -1) {
+    
+    for(String s : listeLinks)
+    {
+               String[] parts = split(s , "-");
+               System.err.println("a supprime le lien au 3e cas: "+parts[1]+ " " + parts[2]);
+                System.out.println(parts[1]+ " " + parts[2]);
+                 break;
+              
+           } //fin for
+    
+    } //fin if
+        } //fin while
+        
     }
     
 }
