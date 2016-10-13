@@ -82,12 +82,16 @@ if(index == -1) {
     
     for(String s : listeLinks)
     {
-               String[] parts = split(s , "-");
+        if(s.contains("-"+SI+"-")){
+            int ind = listeLinks.indexOf(s);
+               String[] parts = split(listeLinks.get(ind), "-");
                System.err.println("a supprime le lien au 3e cas: "+parts[1]+ " " + parts[2]);
                 System.out.println(parts[1]+ " " + parts[2]);
                  break;
+        } 
               
            } //fin for
+    
     
     } //fin if
         } //fin while
